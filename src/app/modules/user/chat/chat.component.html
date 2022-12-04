@@ -1,0 +1,43 @@
+<div class="p-3">
+    <div class="row">
+    <mat-card class="col-sm-3">
+        <mat-card-header>
+            <mat-card-title>Search</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-list>
+                <mat-list-item *ngFor="let user of users"
+                (click)="select_to_user(user)"
+                > {{ user.first_name }} {{ user.last_name }} </mat-list-item>
+               </mat-list>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="col-sm-8">
+        <mat-card-header>
+            <mat-card-title> {{ to?.first_name }} {{ to?.last_name }} </mat-card-title>
+            <mat-card-subtitle></mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+        
+
+           <mat-card class="col-sm-8" *ngFor="let msg of to.messages">
+            <mat-card-header>
+                <mat-card-title>  From {{ msg?.name }}  </mat-card-title>
+                <mat-card-subtitle> {{ msg?.datetime }} </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                {{ msg?.message }}
+            </mat-card-content>
+           </mat-card>
+            
+        </mat-card-content>
+        <mat-card-actions>
+            <mat-form-field class="w-100">
+                <mat-label>Message</mat-label>
+                <input type="text" matInput [(ngModel)]="message">
+                <mat-icon matSuffix (click)="send()" >send</mat-icon>
+              </mat-form-field>
+        </mat-card-actions>
+    </mat-card>
+</div>
+</div>

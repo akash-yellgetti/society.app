@@ -1,0 +1,94 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top">
+
+  <button class="sidenav-toggler" type="button" aria-label="Toggle sidenav" (click)="toggle()"> <i class="bi bi-list"></i></button>
+
+  <a class="navbar-brand " href="#">{{ mainHeader }}</a>
+
+  <!-- <button class="navbar-toggler" type="button" aria-controls="navbarContent" [attr.aria-expanded]="!collapsed" aria-label="Toggle navigation" (click)="collapsed = !collapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>   -->
+
+  <!-- <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent"> -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item d-none d-sm-block ">
+        <a class="nav-link" tabindex="0" role="button"><i class="bi bi-search"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" tabindex="0" role="button" (click)="toggleChat()"><i class="bi bi-chat-dots-fill"></i>
+        </a>
+      </li>
+      <li class="nav-item notification" ngbDropdown display="dynamic" placement="bottom-right">
+        <a class="nav-link no-caret" tabindex="0" ngbDropdownToggle id="notification" role="button"><i class="bi bi-bell-fill"></i> <span class="badge badge-pill badge-danger">4</span></a>
+        <div ngbDropdownMenu aria-labelledby="notification" class="dropdown-menu">
+          <!-- <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Action</a>
+          <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Another action</a>
+          <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Something else here</a> -->
+        </div>
+      </li>
+      <li class="nav-item user-details" ngbDropdown display="dynamic" placement="bottom-right">
+        <a class="nav-link" tabindex="0" ngbDropdownToggle id="userDetails" role="button"> <span class="profile-picture"><img  src="https://expertphotography.com/wp-content/uploads/2018/10/cool-profile-pictures-retouching-1.jpg" alt=""></span></a>
+        <div ngbDropdownMenu aria-labelledby="userDetails" class="dropdown-menu">
+          <button ngbDropdownItem routerLink="/main/society/dashboard"> <i class="bi bi-speedometer2"></i>
+            <span> Dashboard</span> </button>
+          <button ngbDropdownItem routerLink="/main/user/profile"> <i class="bi bi-person"></i>
+            <span> Profile</span></button>
+          <button ngbDropdownItem (click)="logout()"><i class="bi bi-box-arrow-right"></i> <span> Logout</span></button>
+        </div>
+      </li>
+    </ul>
+  <!-- </div> -->
+</nav>
+
+
+
+
+<!-- <mat-toolbar color="primary" class="header-navbar">
+    <button
+      type="button"
+      aria-label="Toggle sidenav"
+      mat-icon-button
+      (click)="toggle()"
+      >
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <span class="header-nav-spacer">{{ mainHeader }}</span>
+    <button mat-icon-button  [matMenuTriggerFor]="notification">
+      <mat-icon>notifications</mat-icon>
+    </button>
+    <mat-menu #notification="matMenu">
+      <button mat-menu-item>
+        <mat-icon>perm_identity</mat-icon>
+        <span>Profile</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+      </button>
+    </mat-menu>
+    <button mat-icon-button [matMenuTriggerFor]="more">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #more="matMenu">
+      <button mat-menu-item routerLink="/main/society/dashboard">
+        <mat-icon>perm_identity</mat-icon>
+        <span>Dashboard</span>
+      </button>
+      <button mat-menu-item routerLink="/main/user/profile">
+        <mat-icon>perm_identity</mat-icon>
+        <span>Profile</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar> -->

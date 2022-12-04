@@ -1,0 +1,35 @@
+<mat-sidenav-container class="sidenav-container" autosize="true">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport="true"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)">
+    <mat-toolbar [hidden]="isCollapsed"  color="primary">SocioSafety</mat-toolbar>
+    <mat-toolbar [hidden]="!isCollapsed" color="primary">SS</mat-toolbar>
+    <mat-nav-list>
+      <app-sidenav-menu *ngFor="let menu of menus" [menu]="menu"
+      [isCollapsed]="isCollapsed"
+      ></app-sidenav-menu>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav
+    #drawerChat
+    class="sidenavchat"
+    fixedInViewport="true"
+    position="end"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="'over'"
+    [opened]="false">
+    <app-sidenav-chat></app-sidenav-chat>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-header [drawerRef]="drawer" [drawerChatRef]="drawerChat" [isHandset]="(isHandset$ | async)" (toSideNavToggle)="sideNavToggle($event)"></app-header>
+    <!-- Add Content Here -->
+    <router-outlet class="main"></router-outlet>
+    <app-footer class="footer"></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<ngx-spinner></ngx-spinner>

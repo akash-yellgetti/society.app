@@ -1,0 +1,359 @@
+<main class="container-main">
+  <ng-container *ngIf="form.action=='list'">
+      <section>
+          <div class="contain header">
+              <nav class="navbar navbar-expand-lg navbar-light p-0">
+                  <h1 class="heading mb-0 d-none d-sm-block">{{ form.name }} </h1>
+                  <!-- <div class="collapse navbar-collapse" id=""> -->
+                  <ul class="navbar-nav ml-auto">
+                      <li class="nav-item">
+                          <div class="form-group">
+                              <div class="input-group">
+                                  <input type="text" class="form-control" placeholder="Search" [(ngModel)]="paginator.search"
+                                  autocomplete="off" (change)="search()">
+                                  <div class="input-group-append">
+                                      <button class="input-group-text" type="button"><i class="bi bi-search"></i></button>
+                                      <!-- for clear search *ngIf="paginator.search" (click)="onSearchClear()" ---- <i class="bi bi-x"></i> -->
+                                  </div>
+                              </div>
+                          </div>
+                      </li>
+                      <li class="nav-item spacer d-sm-none"></li>
+                      <li class="nav-item">
+                          <button type="button" class="btn btn-form-style d-none d-sm-block" (click)="openBottomSheet(filter)">
+                          Filter <i class="bi bi-sliders"></i></button>
+                          <button type="button" class="btn btn-icon d-sm-none" (click)="openBottomSheet(filter)"><i
+                              class="bi bi-sliders"></i></button>
+                      </li>
+                      <li class="nav-item">
+                          <!-- <div class="form-group">
+                              <select id="inputState" class="form-control">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                              </select>
+                              </div> -->
+                          <div ngbDropdown display="dynamic" placement="bottom-right" class="d-none d-sm-block">
+                              <button class="btn btn-form-style" id="dropdownBasic1" ngbDropdownToggle>Sort By</button>
+                              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                  <button ngbDropdownItem>Action - 1</button>
+                                  <button ngbDropdownItem>Another Action</button>
+                                  <button ngbDropdownItem>Something else is here</button>
+                              </div>
+                          </div>
+                          <button type="button" class="btn btn-icon d-sm-none" (click)="openBottomSheet(filter)"><i
+                              class="bi bi-filter"></i></button>
+                      </li>
+                      <li class="nav-item">
+                          <button type="button" class="btn btn-primary d-none d-sm-block" (click)="action($event)" action="add"
+                          *ngIf="hideAddBtn()"><i class="bi bi-plus"></i> Add Member</button>
+                          <!--  (click)="action('add')" *ngIf="hideAddBtn()" -->
+                          <button type="button" class="btn btn-icon d-sm-none" (click)="action($event)"><i
+                              class="bi bi-person-plus"></i></button>
+                      </li>
+                      <li class="nav-item spacer d-none d-sm-block"></li>
+                      <li class="nav-item nav-icon d-none d-sm-block">
+                          <button type="button" class="btn" [ngClass]="{ 'active' : form.listType === 'list' }"
+                          (click)="form.listType = 'list'"><i class="bi bi-list"></i></button>
+                      </li>
+                      <li class="nav-item nav-icon d-none d-sm-block">
+                          <button type="button" class="btn" [ngClass]="{ 'active' : form.listType === 'grid' }"
+                          (click)="form.listType = 'grid'"><i class="bi bi-grid-fill"></i></button>
+                      </li>
+                  </ul>
+                  <!-- </div> -->
+              </nav>
+          </div>
+          <div class="contain" *ngIf="form.listType=='list'">
+              <!-- <div class="card">
+                  <div class="card-body"> </div>
+                  </div> -->
+              <div class="table-container table-responsive">
+                  <table mat-table [dataSource]="items" matSort class="" (matSortChange)="sortData($event)">
+                  <ng-container matColumnDef="{{field.name}}" *ngFor="let field of getTableField()">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ field.label }} </th>
+                      <td mat-cell *matCellDef="let row"> {{row[field.name]}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="more" stickyEnd>
+                      <th mat-header-cell *matHeaderCellDef class="custom-z-index"></th>
+                      <td mat-cell *matCellDef="let item" class="custom-z-index">
+                          <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                              <mat-icon>more_vert</mat-icon>
+                          </button>
+                          <mat-menu #menu="matMenu" xPosition="before">
+                              <button mat-menu-item (click)="action('edit', item)">
+                                  <mat-icon>edit</mat-icon>
+                                  Edit
+                              </button>
+                              <button mat-menu-item (click)="action('delete', item)">
+                                  <mat-icon>delete</mat-icon>
+                                  Delete
+                              </button>
+                          </mat-menu>
+                      </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="paginator.displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: paginator.displayedColumns;"></tr>
+                  <tr class="mat-row" *matNoDataRow>
+                      <td class="mat-cell" colspan="getTableField().length">No Record Found</td>
+                  </tr>
+                  </table>
+              </div>
+          </div>
+          <div class="contain" *ngIf="form.listType=='grid'">
+              <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+                  <div class="col" *ngFor="let item of items">
+                      <div [innerHtml]="card | sanitizeHtml:item"></div>
+                      <!-- <button class="btn btn-outline-primary" (click)="action('edit', item)">Edit</button> -->
+                  </div>
+              </div>
+          </div>
+          <mat-paginator class="w-100" [length]="paginator.length" [pageSize]="paginator.pageSize"
+          [pageSizeOptions]="paginator.pageSizeOptions" [showFirstLastButtons]="paginator.showFirstLastButtons"
+          (page)="handlePageEvent($event)">
+          </mat-paginator>
+      </section>
+  </ng-container>
+  <ng-container  *ngIf="form.action=='add'">
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"> <span
+          aria-hidden="true">&times;</span> </button>
+      <!-- *ngIf="form.action=='add' || form.action=='edit'" -->
+      <div class="card card-modal">
+          <div class="card-header">
+              <h4 class="card-title">Add Member</h4>
+          </div>
+          <form class="needs-validation" novalidate>
+              <div class="card-body">
+                  <!-- <div class="row">
+                      <div class="col-sm-3 col-xs-12"></div>
+                      <div class="col-sm-9 col-xs-12">
+                      
+                        <div class="form-row">
+                          <div class="col-md-6 mb-3">
+                            <label for="validationCustom01">* First name</label>
+                            <input type="text" class="form-control form-control-fill" id="validationCustom01" value="Mark" required>
+                            <div class="valid-feedback">
+                              Looks good!
+                            </div>
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label for="validationCustom02">* Last name</label>
+                            <input type="text" class="form-control form-control-fill" id="validationCustom02" value="Otto" required>
+                            <div class="valid-feedback">
+                              Looks good!
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="col-md-6 mb-3">
+                            <label for="validationCustom04">Relationship</label>
+                            <select class="custom-select form-control form-control-fill" id="validationCustom04">
+                              <option selected disabled value="">Choose...</option>
+                              <option>...</option>
+                            </select>
+                            <div class="invalid-feedback">
+                              Please select a valid Relationship.
+                            </div>
+                          </div>
+                      
+                          <div class="col-md-6 mb-3">
+                            <label for="validationCustom05">* Mobile</label>
+                            <input type="text" class="form-control form-control-fill" id="validationCustom05" required>
+                            <div class="invalid-feedback">
+                              Please provide a valid Mobile.
+                            </div>
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label for="validationCustom06">Date of Birth</label>
+                            <div class="input-group input-group-fill">
+                              <input class="form-control" placeholder="" name="dp" id="validationCustom06">
+                              
+                              <div class="input-group-append">
+                                <button class="input-group-text calendar" type="button"><i class="bi bi-calendar3"></i></button>
+                                
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                              <label for="validationCustom07" class="d-block">Gender</label>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                  value="option1" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                  Male
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                  value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                  Female
+                                </label>
+                              </div>
+                              <div class="invalid-feedback">
+                                You must agree before submitting.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </div> -->
+                  <app-field-builder [fields]="fields"></app-field-builder>
+              </div>
+              <div class="card-footer">
+                  <button type="button" class="btn btn-outline-primary" (click)="modal.close('Close click')">Close</button>
+                  <button type="submit" class="btn btn-primary" (click)="save(modal)">Save</button>
+              </div>
+          </form>
+          <!-- <script>
+              // Example starter JavaScript for disabling form submissions if there are invalid fields
+              (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                  var forms = document.getElementsByClassName('needs-validation');
+                  // Loop over them and prevent submission
+                  var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                      if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                      }
+                      form.classList.add('was-validated');
+                    }, false);
+                  });
+                }, false);
+              })();
+              </script> -->
+      </div>
+  </ng-container>
+</main>
+<ng-template #addMember let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"> <span
+      aria-hidden="true">&times;</span> </button>
+  <!-- *ngIf="form.action=='add' || form.action=='edit'" -->
+  <div class="card card-modal">
+      <div class="card-header">
+          <h4 class="card-title">Add Member</h4>
+      </div>
+      <form class="needs-validation" novalidate>
+          <div class="card-body">
+              <!-- <div class="row">
+                  <div class="col-sm-3 col-xs-12"></div>
+                  <div class="col-sm-9 col-xs-12">
+                  
+                    <div class="form-row">
+                      <div class="col-md-6 mb-3">
+                        <label for="validationCustom01">* First name</label>
+                        <input type="text" class="form-control form-control-fill" id="validationCustom01" value="Mark" required>
+                        <div class="valid-feedback">
+                          Looks good!
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="validationCustom02">* Last name</label>
+                        <input type="text" class="form-control form-control-fill" id="validationCustom02" value="Otto" required>
+                        <div class="valid-feedback">
+                          Looks good!
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md-6 mb-3">
+                        <label for="validationCustom04">Relationship</label>
+                        <select class="custom-select form-control form-control-fill" id="validationCustom04">
+                          <option selected disabled value="">Choose...</option>
+                          <option>...</option>
+                        </select>
+                        <div class="invalid-feedback">
+                          Please select a valid Relationship.
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="validationCustom05">* Mobile</label>
+                        <input type="text" class="form-control form-control-fill" id="validationCustom05" required>
+                        <div class="invalid-feedback">
+                          Please provide a valid Mobile.
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="validationCustom06">Date of Birth</label>
+                        <div class="input-group input-group-fill">
+                          <input class="form-control" placeholder="" name="dp" id="validationCustom06">
+                          <div class="input-group-append">
+                            <button class="input-group-text calendar" type="button"><i class="bi bi-calendar3"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                          <label for="validationCustom07" class="d-block">Gender</label>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                              value="option1" checked>
+                            <label class="form-check-label" for="exampleRadios1">
+                              Male
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                              value="option2">
+                            <label class="form-check-label" for="exampleRadios2">
+                              Female
+                            </label>
+                          </div>
+                          <div class="invalid-feedback">
+                            You must agree before submitting.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div> -->
+              <app-field-builder [fields]="fields"></app-field-builder>
+          </div>
+          <div class="card-footer">
+              <button type="button" class="btn btn-outline-primary" (click)="modal.close('Close click')">Close</button>
+              <button type="submit" class="btn btn-primary" (click)="save(modal)">Save</button>
+          </div>
+      </form>
+      <!-- <script>
+          // Example starter JavaScript for disabling form submissions if there are invalid fields
+          (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+              // Fetch all the forms we want to apply custom Bootstrap validation styles to
+              var forms = document.getElementsByClassName('needs-validation');
+              // Loop over them and prevent submission
+              var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                  if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                  }
+                  form.classList.add('was-validated');
+                }, false);
+              });
+            }, false);
+          })();
+          </script> -->
+  </div>
+</ng-template>
+<ng-template #filter let-modal>
+  <div class="card card-modal">
+      <!-- <div class="card-header">
+          <h4 class="card-title">Filter</h4>
+          </div> -->
+      <div class="card-body p-0">
+          <div class="list-group">
+              <button type="button" class="list-group-item list-group-item-action active" aria-current="true"
+                  (click)="modal.dismiss('Cross click')">
+              The current button
+              </button>
+              <button type="button" class="list-group-item list-group-item-action" (click)="modal.dismiss('Cross click')">A
+              second item</button>
+              <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+          </div>
+      </div>
+  </div>
+</ng-template>

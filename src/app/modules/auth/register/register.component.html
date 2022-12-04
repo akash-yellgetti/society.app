@@ -1,0 +1,59 @@
+
+<section class="login bg-white space-lg vh-100 ">
+    <div class="contain header pt-lg-xs">
+        <h1 class="title">Create new account</h1>
+        <p class="sub-title">Already have an account? <a href="javascript:void(0)" routerLink="/auth/login">Login</a></p>
+       <div class="social-media" >
+          <button type="button" class="btn btn-icon"> <i class="bi bi-google"></i> </button>
+          <button type="button" class="btn btn-icon"> <i class="bi bi-facebook"></i> </button>
+       </div>
+    </div>
+    <div class="contain mt-5 form">
+        <div class="form-row">
+            <app-field-builder [fields]="fields"></app-field-builder>
+            <div class="col-sm-3" *ngIf="flag.verifyOtp">
+                <mat-form-field class="w-100">
+                    <mat-label>Otp</mat-label>
+                    <input matInput [(ngModel)]="otp">
+                </mat-form-field>
+            </div>
+            <div class="col-3"  *ngIf="flag.register">
+                <mat-form-field class="w-100">
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div class="col-3"  *ngIf="flag.register">
+                <mat-form-field class="w-100">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="confirm_password">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <!-- <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="fields[1].value">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                   [attr.aria-pressed]="hide">
+                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                </mat-form-field> -->
+        </div>
+        <div class="form-row form-action">
+            <div class="col">
+            </div>
+            <div class="col text-right">
+                <button class="btn btn-lg btn-primary rounded-0" (click)="verify(otp)" *ngIf="flag.verifyOtp" type="button">Verify</button>
+                <button class="btn btn-lg btn-primary rounded-0" (click)="request(flag.otpFlag)" *ngIf="flag.requestOtp" >{{ flag.otpFlag }} Otp</button>
+                <button class="btn btn-lg btn-primary rounded-0" (click)="register()" *ngIf="flag.register" >Register</button>
+                <!-- <button type="submit"  (click)="login()">Login</button> -->
+            </div>
+        </div>
+    </div>
+    <div class="auth-bg-img"></div>
+ </section>

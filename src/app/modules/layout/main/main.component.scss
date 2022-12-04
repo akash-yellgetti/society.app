@@ -1,0 +1,26 @@
+@import "../../../../assets/styles/index.scss";
+
+.sidenav-container {
+  height: 100%;
+  background-color: $color-gray;
+  // padding-top: 64px;
+}
+
+.sidenav {
+  background-color: $color-secondary;
+  color: $color-white;
+  // background: url(../../../../assets/images/06.jpg) left top no-repeat;
+
+  .mat-toolbar {
+    background-color: $color-secondary;
+    color: $color-white;
+  }
+}
+
+.footer {
+  // position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background-color: $color-gray;
+}

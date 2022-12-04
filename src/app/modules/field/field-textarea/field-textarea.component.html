@@ -1,0 +1,5 @@
+
+<mat-form-field class="w-100">
+    <mat-label>{{field.label}}</mat-label>
+    <textarea matInput [(ngModel)]="field.value" [disabled]="field.field_type === 'primary'" ></textarea>
+</mat-form-field>

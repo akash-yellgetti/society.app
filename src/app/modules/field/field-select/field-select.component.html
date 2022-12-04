@@ -1,0 +1,11 @@
+<mat-form-field class="w-100">
+  <mat-label>{{field.label}}
+    <span class="required-asterisk"
+      *ngIf="field && field.validations && field.validations.indexOf('required') > -1">*</span>
+  </mat-label>
+  <mat-select [(ngModel)]="field.value">
+    <mat-option *ngFor="let option of field.options" [value]="option.key">
+      {{option.value}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

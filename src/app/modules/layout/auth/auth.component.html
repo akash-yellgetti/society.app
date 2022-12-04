@@ -1,0 +1,49 @@
+<nav class="navbar  navbar-expand-lg navbar-dark bg-primary fixed-top"> <!---->
+  <a class="navbar-brand" [routerLink]="'.'">
+    <img src="../../../../assets/images/logo-icon.png" alt="Sociosafety" > <strong>Socio</strong> Safety
+   
+  </a>
+
+  <!-- Step 3: Toggle the value of the property when the toggler button is clicked. -->
+  <button class="navbar-toggler" type="button" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
+  aria-controls="collapseExample">
+  <i class="bi bi-filter-right"></i>
+  </button>
+</nav>
+
+
+<div class="container-fluid">
+  <div class="row " >
+    <!-- style="background: url(../../../../assets/images/00.jpg);" -->
+    <div class="col-xl-5 col-xs-12 p-0 " >
+      <section class="welcome space-lg vh-100 bg-primary inverse"  #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+        <div class="contain header pt-lg-xs">
+           <h1 class="title"><strong>Welcome Back!</strong></h1>
+           <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta molestiae asperiores modi incidunt
+              dolorem deserunt nihil eius error, accusamus ipsam id facere nemo possimus corrupti quas quo, nostrum
+              iusto expedita.</p>
+        </div>
+  
+        <div class="contain mt-5">
+           <h5 class="text-semibold">Download our app</h5>
+           <div class="app-links">
+              <a href="#"> <i class="icon-play-store"></i> <span>Google Play</span> </a>
+              <a href="#"> <i class="icon-apple-icon"></i> <span>App Store</span> </a>
+           </div>
+        </div>
+        <div class="auth-bg-img inverse"></div>
+     </section>   
+    </div>
+    <div class="col-lg-7 col-xs-12 p-0 ">
+      <router-outlet></router-outlet>
+    </div>
+ </div>
+  
+</div>
+
+
+    <!-- 
+       <a mat-button routerLink="/auth/register">Register</a>
+      <a mat-button routerLink="/auth/login">Login</a>
+      <a mat-button routerLink="/auth/forgot-password">Forgot Password</a>
+     -->

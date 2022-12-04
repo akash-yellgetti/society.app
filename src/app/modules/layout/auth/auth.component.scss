@@ -1,0 +1,82 @@
+@import "../../../../assets/styles/index.scss";
+
+.welcome {
+	@media (max-width: 767px) {
+		position: absolute;
+		z-index: 9;
+	}
+
+	.logo {
+		position: absolute;
+		top: $space;
+		left: $space-lg;
+	}
+
+	.app-links {
+		margin-top: $space-sm;
+		a {
+			display: inline-block;
+			color: $color-white;
+			text-align: center;
+			//  width: 100px;
+			i {
+				width: 64px;
+				height: 64px;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				background-color: $color-secondary-dark;
+				border-radius: 10px;
+				border: 2px solid $color-white;
+				&::before {
+					font-size: 36px;
+				}
+			}
+			span {
+				display: block;
+				margin-top: $space-xs;
+				font-size: 12px;
+			}
+			& + a {
+				margin-left: $space;
+			}
+		}
+	}
+}
+
+.navbar {
+	@media (max-width: 767px) {
+		border-bottom: 1px solid rgba($color: $color-white, $alpha: 0.3);
+	}
+
+	@media (min-width: 768px) {
+		background-color: transparent !important;
+	}
+
+	.navbar-brand {
+		font-size: 24px;
+		letter-spacing: -1px;
+		img {
+			width: 30px;
+			height: 30px;
+			margin-right: 15px;
+			// margin-left: 30px;
+			filter: grayscale(200%) contrast(200%) brightness(200%);
+		}
+	}
+
+  .navbar-toggler {
+    border: none;
+    color: $color-white;
+    font-size: 30px;
+
+  }
+}
+
+@media (min-width: 768px) {
+	.collapse {
+		display: block;
+	}
+}
+
+

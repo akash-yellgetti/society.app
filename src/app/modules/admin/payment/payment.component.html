@@ -1,0 +1,17 @@
+<ng-container *ngIf="page.view==='initiated'">
+    <div class="search-div">
+        <button mat-raised-button color="primary" (click)="initiated()">
+          <mat-icon>add</mat-icon>Pay
+        </button>
+      </div>
+</ng-container>
+
+<div [ngClass]="{ 'd-none': page.view==='initiated', '': page.view==='processing' }">
+    <h1>Please do not refresh this page...</h1>
+    <form id="myForm" action="{{page.url}}" method="post" class="d-none">
+        <mat-form-field class="w-100" *ngFor="let param of page.params">
+            <mat-label>{{ param.key }}</mat-label>
+            <input matInput name='{{param.key}}' type='text' [value]='param.value'>
+        </mat-form-field>
+    </form>
+</div>

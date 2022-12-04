@@ -1,0 +1,91 @@
+Admin
+    User
+      1.Users are the participants who will be login in this app
+      2.Mainly this users are divided into groups of role. Following are the groups
+            - Super admin
+            - Admin
+            - Chaireman
+            - Secretary
+            - trasurer
+            - Security
+            - Janitor(Doorekeeper)
+    Role
+     1.All the menu access permission will be define here
+     2.Roles were already define in previous slide.
+
+Management
+    Society
+      -Here we can check all the information regarding the society.
+    Wing
+      - As the name suggest number of wings belong to the society.
+    Flat
+      -Flats are number of blocks(Flat: 2BHK,1BHK,1RK etc.)
+      -Helps us to validate number of blocks inside the society.
+    Members
+      -It's the mapping between users and the blocks availble in the society
+      -In which directly and indirectly helps us to understand number of factors.
+      -Likewise
+        -Number of rented flats and owner flats
+        -contact person for the flat
+
+Service
+    Minutes of Meeting(MOM)
+     -Mom holds the information like,
+        -Title
+        -Start Time
+        -End Time
+        -Agendas(Multiple agendas with multiple solution)
+        -Location
+
+    Complaint
+        -Users can raised complaints for any given specifice reason.
+        -Complaints hold following information
+            -Title
+            -Description
+            -Reported by
+            -Assignee
+            -No of days in which complain was resolved.
+
+    Events
+        -We can also track events happening in the society like Satyanarayan pooja, 31st Decemb,Republican day,etc.
+        -Events hold information such as
+            -Title
+            -Description
+            -No. of members involve
+
+            Also the expenses initiatiated for the events
+
+Accounts
+    Settings
+    Ledger
+    Voucher
+
+Tracker
+    Vehicle
+      -In this we can monitor the count and positioning  of the car
+      -In this cross vehicle problems is solved.
+    Visitor
+      -We can take record of visitors.
+      -It takes care both permanant and temporary guests.
+    Vendor
+      -We can keep eye on vendors.
+
+Communication
+    Notification
+    -It is the important factor it give alert and reminder.
+    -Admin can send notificaion to every users as a reminder
+    -
+    Sms
+    Email
+    Chat
+    Groups
+    Opinion Polls
+    Discussion Forum
+
+Location
+    Zone
+    Country
+    State
+    City
+    Area
+    Pincode

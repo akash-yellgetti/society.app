@@ -1,0 +1,18 @@
+@import "../../../../assets/styles/index.scss";
+
+
+
+.login {
+	.header {
+		.title {
+			strong {
+				@media (max-width: 1199.98px) {
+					display: block;
+				}
+			}
+		}
+	}
+	.form {
+		max-width: 500px;
+	}
+}

@@ -1,0 +1,11 @@
+
+sudo apt-get install android-tools-adb android-tools-fastboot
+
+
+sudo add-apt-repository ppa:cwchien/gradle
+sudo apt-get update
+sudo apt-get install gradle-ppa
+
+
+wget https://services.gradle.org/distributions/gradle-5.0-bin.zip -P /tmp
+sudo unzip -d /opt/gradle /tmp/gradle-*.zip

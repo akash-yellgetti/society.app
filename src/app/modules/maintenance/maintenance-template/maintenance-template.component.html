@@ -1,0 +1,36 @@
+<main class="container-main">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title"> {{ form?.name }} </h4>
+        </div>
+        <div class="card-body">
+            <div>
+                <app-field-builder [fields]="form?.fields"></app-field-builder>
+            </div>
+            <div class="form-row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let charge of chargesMaster">
+                            <th scope="row">{{ charge.charge_id }}</th>
+                            <td>{{ charge.name }}</td>
+                            <td>
+                                <input [(ngModel)]="charge.amount" value="1">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-outline-primary" >Close</button>
+            <button type="submit" class="btn btn-primary" (click)="save()">Save</button>
+        </div>
+    </div>
+</main>

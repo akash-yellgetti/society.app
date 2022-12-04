@@ -1,0 +1,7 @@
+<mat-toolbar [hidden]="isCollapsed"  color="primary">SocioSafety</mat-toolbar>
+<mat-toolbar [hidden]="!isCollapsed" color="primary">SS</mat-toolbar>
+<mat-nav-list>
+    <app-sidenav-menu *ngFor="let menu of menus" [menu]="menu"
+    [isCollapsed]="isCollapsed"
+    ></app-sidenav-menu>
+</mat-nav-list>

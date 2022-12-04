@@ -1,0 +1,32 @@
+<div class="row">
+    <ng-container *ngFor="let field of fields" >
+        <div *ngIf="field.field_type === 'text' || field.field_type === 'readonly' || field.field_type === 'primary' " class="col-{{field.col}}">
+            <app-field-input [field]="field" ></app-field-input>
+        </div>
+        <div *ngIf="field.field_type === 'textarea'" class="col-{{field.col}}">
+            <app-field-textarea [field]="field" ></app-field-textarea>
+        </div>
+        <div *ngIf="field.field_type === 'select'" class="col-{{field.col}}">
+            <app-field-select [field]="field" ></app-field-select>
+        </div>
+        <div *ngIf="field.field_type === 'select2-ajax'" class="col-{{field.col}}">
+            <app-field-select-ajax [field]="field" ></app-field-select-ajax>
+        </div>
+        <div *ngIf="field.field_type === 'select2-sql'" class="col-{{field.col}}">
+            <app-field-select-sql [field]="field" ></app-field-select-sql>
+        </div>
+        <div *ngIf="field.field_type === 'date'" class="col-{{field.col}}">
+            <app-field-datetime [field]="field" ></app-field-datetime>
+        </div>
+        <div *ngIf="field.field_type === 'ckEditor'" class="col-{{field.col}}">
+            <app-field-ck-editor [field]="field" ></app-field-ck-editor>
+        </div>
+        <div *ngIf="field.field_type === 'aceEditor'" class="col-{{field.col}}">
+            <app-field-ace-editor [field]="field" ></app-field-ace-editor>
+        </div>
+        <div *ngIf="field.field_type === 'file'" class="col-{{field.col}}">
+            <app-field-file [field]="field" ></app-field-file>
+        </div>
+    </ng-container>
+</div>
+

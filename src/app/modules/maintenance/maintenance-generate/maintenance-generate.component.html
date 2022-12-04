@@ -1,0 +1,151 @@
+<main class="container-main">
+  <ng-container *ngIf="form?.view=='add' || form?.view=='edit'">
+      <div class="card">
+          <div class="card-header">
+              <h4 class="card-title"> {{ form?.name }} </h4>
+          </div>
+          <div class="card-body">
+              <div class="form-row">
+                  <mat-form-field>
+                      <mat-label>Templates</mat-label>
+                      <mat-select (selectionChange)="templateChanged($event.value)">
+                          <mat-option *ngFor="let template of templates" [value]="template.template_id">
+                          {{template.name}}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  <mat-form-field>
+                      <mat-label>Type</mat-label>
+                      <mat-select [(ngModel)]="type">
+                      <mat-option *ngFor="let type of types" [value]="type.code">
+                      {{type.name}}
+                      </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div>
+              <div class="form-row"  *ngIf="template && template.charges" >
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Amount</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let charge of template.charges">
+                              <th scope="row">{{ charge.charge_id }}</th>
+                              <td>{{ charge.detail.name }}</td>
+                              <td>
+                                  <input [(ngModel)]="charge.amount" value="1">
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <div class="form-row" *ngIf="template && template.flats" >
+                  <mat-form-field appearance="fill">
+                      <mat-label>Flats</mat-label>
+                      <mat-select [formControl]="flats" multiple>
+                          <mat-select-trigger>
+                              {{flats.value ? flats.value[0] : ''}}
+                              <span *ngIf="flats.value?.length > 1" class="example-additional-selection">
+                              (+{{flats.value.length - 1}} {{flats.value?.length === 2 ? 'other' : 'others'}})
+                              </span>
+                          </mat-select-trigger>
+                          <mat-option *ngFor="let flat of template.flats" [value]="flat.flat_id">{{flat.code }} {{ flat?.owner_member?.first_name+" "+flat?.owner_member?.last_name }}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div>
+          </div>
+          <div class="card-footer">
+              <button type="button" class="btn btn-outline-primary" >Close</button>
+              <button type="submit" class="btn btn-primary" (click)="save()">Save</button>
+          </div>
+      </div>
+  </ng-container>
+  <ng-container>
+      <section>
+        <div class="contain header">
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+                <h1 class="heading mb-0 d-none d-sm-block">{{ form.name }} </h1>
+                <!-- <div class="collapse navbar-collapse" id=""> -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" [(ngModel)]="form.paginator.search"
+                                autocomplete="off" (change)="search()">
+                                <div class="input-group-append">
+                                    <button class="input-group-text" type="button"><i class="bi bi-search"></i></button>
+                                    <!-- for clear search *ngIf="form.paginator.search" (click)="onSearchClear()" ---- <i class="bi bi-x"></i> -->
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item spacer d-sm-none"></li>
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-primary d-none d-sm-block" (click)="commonComponentService.action($event)" action="add"
+                        *ngIf="commonComponentService.hideAddBtn()"><i class="bi bi-plus"></i> Add </button>
+                        <!--  (click)="commonComponentService.action('add')" *ngIf="hideAddBtn()" -->
+                        <button type="button" class="btn btn-icon d-sm-none" (click)="commonComponentService.action($event)"><i
+                            class="bi bi-person-plus"></i></button>
+                    </li>
+                    <li class="nav-item spacer d-none d-sm-block"></li>
+                    <li class="nav-item nav-icon d-none d-sm-block">
+                        <button type="button" class="btn" [ngClass]="{ 'active' : form.view === 'list' }"
+                        (click)="form.view = 'list'"><i class="bi bi-list"></i></button>
+                    </li>
+                    <li class="nav-item nav-icon d-none d-sm-block">
+                        <button type="button" class="btn" [ngClass]="{ 'active' : form.view === 'grid' }"
+                        (click)="form.view = 'grid'"><i class="bi bi-grid-fill"></i></button>
+                    </li>
+                </ul>
+                <!-- </div> -->
+            </nav>
+        </div>
+          <div class="contain" *ngIf="form?.view=='list'">
+              <div class="table-container table-responsive">
+                  <table mat-table [dataSource]="form.data" matSort class="" (matSortChange)="sortData($event)">
+                  <ng-container matColumnDef="{{field.name}}" *ngFor="let field of getTableField()">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ field.label }} </th>
+                      <td mat-cell *matCellDef="let row"> {{row[field.name]}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="more" stickyEnd>
+                      <th mat-header-cell *matHeaderCellDef class="custom-z-index"></th>
+                      <td mat-cell *matCellDef="let d" class="custom-z-index">
+                          <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                              <mat-icon>more_vert</mat-icon>
+                          </button>
+                          <mat-menu #menu="matMenu" xPosition="before">
+                              <button mat-menu-item (click)="action('edit', d)">
+                                  <mat-icon>edit</mat-icon>
+                                  Edit
+                              </button>
+                              <button mat-menu-item (click)="action('delete', d)">
+                                  <mat-icon>delete</mat-icon>
+                                  Delete
+                              </button>
+                          </mat-menu>
+                      </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="form.paginator.displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: form.paginator.displayedColumns;"></tr>
+                  <tr class="mat-row" *matNoDataRow>
+                      <td class="mat-cell" colspan="getTableField().length">No Record Found</td>
+                  </tr>
+                  </table>
+              </div>
+          </div>
+          <div class="contain" *ngIf="form?.view=='grid'">
+              <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+                  <div class="col" *ngFor="let item of items">
+                      <div [innerHtml]="card | sanitizeHtml:item"></div>
+                      <!-- <button class="btn btn-outline-primary" (click)="action('edit', item)">Edit</button> -->
+                  </div>
+              </div>
+          </div>
+          
+      </section>
+  </ng-container>
+</main>

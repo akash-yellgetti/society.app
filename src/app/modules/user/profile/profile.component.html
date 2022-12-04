@@ -1,0 +1,79 @@
+<main class="container-main">
+
+    <div class="row">
+
+
+
+
+
+        <div class="col-sm-4 col-xs-12">
+            <div class="card mb-4" >
+                <div class="card-header"> <h5 class="card-title">About</h5></div>
+                <div class="card-body">
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab eveniet corporis nobis nostrum doloribus, laudantium possimus iure, alias doloremque asperiores cupiditate ratione quisquam! Odio, maiores ullam commodi repellat rem eum!</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 col-xs-12">
+
+
+            <ngb-accordion [closeOthers]="true" #a="ngbAccordion" activeIds="custom-panel-1" class="card-accordion">
+                <ngb-panel id="custom-panel-1" class="card-panel">
+                  <ng-template ngbPanelHeader>
+                    <h5 class="card-title">Profile</h5>
+                    <button ngbPanelToggle class="btn btn-toggle"><i class="bi bi-chevron-down"></i></button>
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                    <app-field-builder [fields]="fields"></app-field-builder>
+                    <div class="card-action">     
+                        <button type="button" class="btn btn-outline-primary" (click)="modal.close('Close click')">Close</button>
+                        <button type="submit" class="btn btn-primary" (click)="save()">Save</button>
+                      </div>
+                  </ng-template>
+                </ngb-panel>
+                <ngb-panel>
+                    <ng-template ngbPanelHeader>
+                        <h5 class="card-title">Change password</h5>
+                        <button ngbPanelToggle class="btn btn-toggle"><i class="bi bi-chevron-down"></i></button>
+                      </ng-template>
+                  <ng-template ngbPanelContent>
+                   I'm change password
+                  </ng-template>
+                </ngb-panel>
+               
+              </ngb-accordion>
+              
+
+            
+            <!-- <mat-accordion class="example-headers-align" multi>
+                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Profile
+                        </mat-panel-title>
+                        
+                    </mat-expansion-panel-header>
+
+                    <app-field-builder [fields]="fields"></app-field-builder>
+
+                    <mat-action-row>
+                       
+                        <button mat-stroked-button color="primary">Cancel</button>
+                        <button mat-raised-button color="primary" (click)="save()">Save</button>
+                    </mat-action-row>
+
+                </mat-expansion-panel>
+                
+                <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Title
+                        </mat-panel-title>                       
+                    </mat-expansion-panel-header>
+                </mat-expansion-panel>
+            </mat-accordion> -->
+        </div>
+    </div>
+
+
+</main>

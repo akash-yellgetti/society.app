@@ -1,0 +1,10 @@
+<mat-form-field class="w-100">
+<mat-label>{{ field.label }}</mat-label>
+<input matInput [(ngModel)]="field.value" name="{{field.name}}" [matAutocomplete]="auto" (ngModelChange)="doFilter()"
+[value]="field.optionValue">
+<mat-autocomplete #auto="matAutocomplete" (optionSelected)="updateSelection($event)">
+    <mat-option *ngFor="let option of filteredOptions" [value]="option[currentOption[0]]">
+    {{option[currentOption[1]]}}
+    </mat-option>
+</mat-autocomplete>
+</mat-form-field>

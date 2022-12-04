@@ -1,0 +1,83 @@
+@import "../../../../../assets/styles/index.scss";
+
+.navbar {
+	padding-top: $space-sm;
+	padding-bottom: $space-sm;
+    @media (max-width: 767.98px) {
+        padding: $space-xs;
+        justify-content: flex-start;
+    }
+
+	.sidenav-toggler {
+		background-color: transparent;
+		border: none;
+		font-size: 30px;
+        line-height: 1;
+	}
+
+    .navbar-brand {
+        font-size: $heading-3;
+        font-weight: 600;
+    }
+
+	.navbar-nav {
+        @media (max-width: 767.98px) {
+            flex-direction: row;
+        }
+		.nav-item {
+			.nav-link {
+                font-size: $text-lg;
+                padding: 5px 10px;
+                &:focus {
+                    outline: none;
+
+                }
+				&.no-caret {
+					&::after {
+						display: none;
+					}
+				}
+			}
+            &.notification {
+                .badge {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    font-size: 10px;
+                    line-height: 1.4;
+                }
+            }
+
+            &.user-details {
+                margin-left: $space-xs;
+                .profile-picture {
+                    width: 32px;
+                    height: 32px;
+                    overflow: hidden;
+                    display: inline-block;
+                    float: left;
+                    border-radius: 50%;
+                    img {
+                        width: 100%;
+                    }
+
+                }
+
+                .dropdown-menu {
+                    margin-top: 10px;
+                    border-radius: 0;
+                }
+            }
+		}
+	}
+
+	&.navbar-dark {
+		.sidenav-toggler {
+			color: $color-white;
+		}
+
+        .navbar-nav .nav-link {
+            color: $color-white;
+        }
+	}
+}

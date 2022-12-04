@@ -1,0 +1,9 @@
+@import "../../../../assets/styles/index.scss";
+
+.dashboard-widget-1, .dashboard-widget-2, .dashboard-widget-last-1, .dashboard-widget-last-2, {
+    height: 30vh;
+}
+.card {
+    min-height: 160px;
+    margin-bottom: $col-space-sm;
+}

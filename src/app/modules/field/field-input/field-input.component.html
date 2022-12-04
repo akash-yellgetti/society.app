@@ -1,0 +1,8 @@
+<mat-form-field class="w-100">
+    <mat-label>{{field.label}}
+        <span class="required-asterisk"
+            *ngIf="field && field.validations && field.validations.indexOf('required') > -1">*</span>
+    </mat-label>
+    <input matInput [(ngModel)]="field.value"
+        [disabled]="field.field_type === 'primary'|| field.field_type === 'readonly'">
+</mat-form-field>
